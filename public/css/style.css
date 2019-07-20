@@ -1,0 +1,42 @@
+body {
+    font-family: 'Open Sans', sans-serif;
+}
+
+a:hover {
+    text-decoration: none;
+}
+
+main {
+    padding: 65px;
+}
+
+#eater-logo {
+    max-width: 129px;
+    max-height: 35px;
+}
+
+.story-list li {
+    display: flex;
+    align-items: center;
+    padding: 4px 0;
+    border-bottom: 1px solid #dfe1e5;
+    font-size: 0.9rem;
+}
+
+.save-btn {
+    border: none;
+    margin-left: auto;
+    background-color: transparent;
+}
+
+.save-btn {
+    color: #007bff;
+}
+
+.save-btn:hover, .save-btn:active {
+    color: #0056b3;
+}
+
+.save-btn:focus {
+    outline: none;
+}

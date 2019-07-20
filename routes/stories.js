@@ -5,6 +5,18 @@ const db = require('../models');
 
 // Routes
 module.exports = function (app) {
+    // GET route for rendering home view
+    app.get('/', function (req, res) {
+        db.Story.find({})
+            .sort({ _id: -1 })
+            .then(function (dbStory) {
+                res.status(200).render('home', { stories: dbStory, title: 'Stories' });
+            })
+            .catch(function (err) {
+                res.status(500).send(err);
+            });
+    });
+
     // GET route for listing all stories
     app.get('/api/stories', function (req, res) {
         db.Story.find({})
