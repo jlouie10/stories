@@ -16,6 +16,17 @@ module.exports = function (app) {
             });
     });
 
+    // GET route for retrieving a comment by id
+    app.get('/api/comments/:_id', function (req, res) {
+        db.Comment.find({ _id: req.params._id })
+            .then(function (dbComment) {
+                res.status(200).json(dbComment);
+            })
+            .catch(function (err) {
+                res.status(500).json(err);
+            });
+    });
+
     // POST route for creating a comment and updating a story
     app.post('/api/comments', function (req, res) {
         db.Comment.create(req.body)
