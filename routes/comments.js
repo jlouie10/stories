@@ -40,7 +40,6 @@ module.exports = function (app) {
             });
     });
 
-
     // DELETE route for deleting a comment
     app.delete('/api/comments/:_id', function (req, res) {
         db.Comment.deleteOne({ _id: req.params._id })
