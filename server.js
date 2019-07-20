@@ -28,5 +28,8 @@ app.set('view engine', 'handlebars');
 // Connect to MongoDB
 mongoose.connect(config.MONGODB_URI, { useNewUrlParser: true });
 
+// Routes
+require('./routes/scrape')(app);
+
 // Start server
 app.listen(PORT);
