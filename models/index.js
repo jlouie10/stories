@@ -1,5 +1,6 @@
 'use strict';
 
 module.exports = {
-    Story: require('./Story')
+    Story: require('./Story'),
+    Comment: require('./Comment')
 };
