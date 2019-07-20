@@ -6,6 +6,26 @@ a:hover {
     text-decoration: none;
 }
 
+.navbar {
+    padding-right: 65px;
+    padding-left: 65px;
+}
+
+.navbar .container {
+    padding-right: 15px;
+    padding-left: 15px;
+}
+
+.navbar-brand {
+    color: #333;
+    font-weight: 700;
+    text-transform: uppercase;
+}
+
+.navbar-brand:hover, .navbar-brand:active, .navbar-brand:focus {
+    color: #999;
+}
+
 main {
     padding: 65px;
 }
