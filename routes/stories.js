@@ -17,6 +17,18 @@ module.exports = function (app) {
             });
     });
 
+    // GET route for rendering saved view
+    app.get('/saved', function (req, res) {
+        db.Story.find({ bookmark: true })
+            .sort({ _id: -1 })
+            .then(function (dbStory) {
+                res.status(200).render('saved', { stories: dbStory, title: 'Saved Stories' });
+            })
+            .catch(function (err) {
+                res.status(500).send(err);
+            });
+    });
+
     // GET route for listing all stories
     app.get('/api/stories', function (req, res) {
         db.Story.find({})
