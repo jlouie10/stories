@@ -39,4 +39,18 @@ module.exports = function (app) {
                 res.status(500).json(err);
             });
     });
+
+
+    // DELETE route for deleting a comment
+    app.delete('/api/comments/:_id', function (req, res) {
+        db.Comment.deleteOne({ _id: req.params._id })
+            .then(function (dbComment) {
+                res.status(200).json(dbComment);
+
+                return db.Story.findOneAndUpdate({ _id: req.body.story }, { $pull: { comments: dbComment._id } }, { new: true });
+            })
+            .catch(function (err) {
+                res.status(500).json(err);
+            });
+    });
 };
