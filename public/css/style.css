@@ -6,6 +6,11 @@ a:hover {
     text-decoration: none;
 }
 
+.form-group.required label:after {
+  content:"*";
+  color: #dc3545;
+}
+
 .navbar {
     padding-right: 65px;
     padding-left: 65px;
@@ -35,12 +40,15 @@ main {
     max-height: 35px;
 }
 
-.story-list li {
-    display: flex;
-    align-items: center;
+.story-list li, .saved-story-list li {
     padding: 4px 0;
     border-bottom: 1px solid #dfe1e5;
     font-size: 0.9rem;
+}
+
+.story-list li {
+    display: flex;
+    align-items: center;
 }
 
 .save-btn, .remove-btn {
@@ -59,6 +67,11 @@ main {
 
 .save-btn:focus, .remove-btn:focus {
     outline: none;
+}
+
+.saved-story {
+    display: flex;
+    align-items: center;
 }
 
 .remove-btn {
