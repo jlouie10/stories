@@ -30,4 +30,19 @@ $(function () {
                 }
             });
     });
+
+    $('.remove-btn').on('click', function () {
+        event.preventDefault();
+
+        var _id = $(this).attr('data-id');
+        var story = { bookmark: false };
+
+        // Update save state to false using POST request and removes story from view
+        $.post('/api/stories/' + _id, story)
+            .then(function (res) {
+                return $('[data-id=' + res._id + ']')
+                    .parent()
+                    .remove();
+            });
+    });
 });
