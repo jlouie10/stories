@@ -30,6 +30,7 @@ mongoose.connect(config.MONGODB_URI, { useNewUrlParser: true });
 
 // Routes
 require('./routes/scrape')(app);
+require('./routes/stories')(app);
 
 // Start server
 app.listen(PORT);
