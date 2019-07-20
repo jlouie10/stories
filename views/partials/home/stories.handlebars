@@ -1,3 +1,8 @@
 <li>
     <a href="{{link}}" class="story-link" target="_blank">{{title}}</a>
+    {{#if bookmark}}
+    <button type="button" class="save-btn" data-id="{{_id}}" data-save="true"><i class="fas fa-star"></i></button>
+    {{else}}
+    <button type="button" class="save-btn" data-id="{{_id}}" data-save="false"><i class="far fa-star"></i></button>
+    {{/if}}
 </li>
