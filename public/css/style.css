@@ -23,7 +23,7 @@ main {
     font-size: 0.9rem;
 }
 
-.save-btn {
+.save-btn, .remove-btn {
     border: none;
     margin-left: auto;
     background-color: transparent;
@@ -37,6 +37,14 @@ main {
     color: #0056b3;
 }
 
-.save-btn:focus {
+.save-btn:focus, .remove-btn:focus {
     outline: none;
+}
+
+.remove-btn {
+    color: #dc3545;
+}
+
+.remove-btn:hover, .remove-btn:active {
+    color: #c82333;
 }
