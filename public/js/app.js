@@ -45,4 +45,24 @@ $(function () {
                     .remove();
             });
     });
+
+    $('.submit-btn').on('click', function () {
+        event.preventDefault();
+
+        var comment = {
+            author: $(this).parent().find('.author').val().trim(),
+            text: $(this).parent().find('.comment').val().trim(),
+            story: $(this).parent().attr('data-story')
+        }
+
+        if (comment.author === '') {
+            comment.author = 'Anonymous';
+        }
+
+        // Create comment using POST request
+        $.post('/api/comments', comment)
+            .then(function (res) {
+                return $('[data-story=' + res.story + ']')[0].reset();
+            });
+    });
 });

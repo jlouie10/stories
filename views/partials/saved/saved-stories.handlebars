@@ -6,7 +6,7 @@
         <button type="button" class="remove-btn" data-id="{{_id}}"><i class="fas fa-minus-circle"></i></button>
     </div>
     <div class="collapse" id="story-{{_id}}">
-        <form>
+        <form method="POST" role="form" data-story="{{_id}}">
             <div class="form-group">
                 <label for="author">Name</label>
                 <input type="text" class="form-control author" placeholder="John Wick">
@@ -15,7 +15,7 @@
                 <label for="comment">Comment</label>
                 <textarea class="form-control comment" rows="3" required></textarea>
             </div>
-            <button type="submit" class="btn btn-primary">Submit</button>
+            <button type="submit" class="btn btn-primary submit-btn">Submit</button>
         </form>
     </div>
 </li>
