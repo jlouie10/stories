@@ -1,6 +1,40 @@
 'use strict';
 
 $(function () {
+    // Scrape website for new stories using GET request and render stories
+    $.get('/api/v2/scrape')
+        .then(function (res) {
+            if (res.message !== 'No new stories') {
+                var storiesLength = res.length;
+
+                for (var i = 0; i < storiesLength; i++) {
+                    var stories = $('.story-list');
+                    var listItem = $('<li>');
+                    var anchor = $('<a>');
+                    var button = $('<button>');
+                    var icon = $('<i>');
+
+                    anchor.text(res[i].title)
+                        .addClass('story-link')
+                        .attr('href', res[i].link)
+                        .attr('target', '_blank');
+
+                    icon.addClass('far fa-star');
+
+                    button.addClass('save-btn')
+                        .attr('type', 'button')
+                        .attr('data-id', res[i]._id)
+                        .attr('data-save', 'false')
+                        .append(icon);
+
+                    listItem.append(anchor)
+                        .append(button);
+
+                    stories.prepend(listItem);
+                }
+            }
+        });
+
     $('.save-btn').on('click', function () {
         event.preventDefault();
 
