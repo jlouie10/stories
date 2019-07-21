@@ -89,16 +89,10 @@ module.exports = function (app) {
                 });
             });
 
-            $[1]('h2.post-block__title').each(function (i, element) { // Unable to target <article>
+            $[1]('.post-block--unread').each(function (i, element) { // Unable to target <article>
                 results.push({
-                    title: $[1](element).children('a').text().trim(),
-                    link: $[1](element).children('a').attr('href').trim(),
-                    summary: $[1](element).parent()
-                        .parent()
-                        .find('.post-block__content')
-                        .children('p')
-                        .text()
-                        .trim()
+                    title: $[1](element).find('header h2 a').text().trim(),
+                    link: $[1](element).find('header h2 a').attr('href').trim()
                 });
             });
 
