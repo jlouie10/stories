@@ -1,9 +1,9 @@
 <li class="saved-story-list-item">
     <div class="saved-story">
-        <a href="{{link}}" class="story-link" target="_blank">{{title}}</a>
-        <button type="button" class="comment-btn" data-id="{{_id}}" data-toggle="collapse" data-target="#story-{{_id}}"
+        <a href={{link}} class="story-link" target="_blank">{{title}}</a>
+        <button type="button" class="comment-btn" data-id={{_id}} data-toggle="collapse" data-target="#story-{{_id}}"
             aria-expanded="false" aria-controls="story-{{_id}}"><i class="fas fa-comment"></i></button>
-        <button type="button" class="remove-btn" data-id="{{_id}}"><i class="fas fa-minus-circle"></i></button>
+        <button type="button" class="remove-btn" data-id={{_id}}><i class="fas fa-minus-circle"></i></button>
     </div>
     <div class="collapse" id="story-{{_id}}">
         <ul class="comment-list my-3">
@@ -14,7 +14,7 @@
             </li>
             {{/each}}
         </ul>
-        <form class="comment-form my-3" method="POST" role="form" data-story="{{_id}}">
+        <form class="comment-form my-3" method="POST" role="form" data-story={{_id}}>
             <div class="form-group">
                 <label for="author">Name <span class="optional">(optional)</span></label>
                 <input type="text" class="form-control author" placeholder="John Wick">

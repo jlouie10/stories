@@ -8,6 +8,7 @@ module.exports = function (app) {
     // GET route for listing all comments
     app.get('/api/comments', function (req, res) {
         db.Comment.find({})
+            .sort({ _id: -1 })
             .then(function (dbComment) {
                 res.status(200).json(dbComment);
             })
