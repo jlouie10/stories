@@ -41,6 +41,7 @@ $(function () {
         $.post('/api/stories/' + _id, story)
             .then(function (res) {
                 return $('[data-id=' + res._id + ']')
+                    .parent() // Resolve addition of new <div> wrapping story
                     .parent()
                     .remove();
             });
