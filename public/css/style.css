@@ -40,13 +40,27 @@ main {
     max-height: 35px;
 }
 
+#tc-logo {
+    max-width: 70px;
+    max-height: 35px;
+}
+
+#ringer-logo {
+    max-width: 119px;
+    max-height: 35px;
+}
+
 .story-list li, .saved-story-list-item {
     padding: 4px 0;
     border-bottom: 1px solid #dfe1e5;
     font-size: 0.9rem;
 }
 
-.story-list li {
+.story-list li p {
+    font-size: 0.75rem;
+}
+
+.story, .saved-story {
     display: flex;
     align-items: center;
 }
@@ -70,11 +84,6 @@ main {
 
 .save-btn:focus, .comment-btn:focus, .remove-btn:focus {
     outline: none;
-}
-
-.saved-story {
-    display: flex;
-    align-items: center;
 }
 
 .remove-btn {

@@ -10,7 +10,13 @@ module.exports = function (app) {
         db.Story.find({})
             .sort({ _id: -1 })
             .then(function (dbStory) {
-                res.status(200).render('home', { stories: dbStory, title: 'Stories' });
+                res.status(200).render('home', {
+                    stories: dbStory,
+                    eater: dbStory.filter(story => story.link.includes('https://chicago.eater.com/')),
+                    tc: dbStory.filter(story => story.link.includes('https://techcrunch.com/')),
+                    ringer: dbStory.filter(story => story.link.includes('https://www.theringer.com/')),
+                    title: 'Stories'
+                });
             })
             .catch(function (err) {
                 res.status(500).send(err);
