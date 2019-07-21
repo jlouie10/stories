@@ -122,8 +122,8 @@ $(function () {
                 var heading = $('<h6>');
                 var paragraph = $('<p>');
 
-                paragraph.text(res.text);
-                heading.text(res.author);
+                paragraph.text(res.text).addClass('comment-text');
+                heading.text(res.author).addClass('comment-author mb-1');
 
                 listItem.append(heading).append(paragraph);
                 comments.append(listItem);
