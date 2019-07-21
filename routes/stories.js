@@ -39,7 +39,8 @@ module.exports = function (app) {
     // GET route for listing all stories
     app.get('/api/stories', function (req, res) {
         db.Story.find({})
-            .populate('comments')
+            .populate({ path: 'comments', options: { sort: { _id: -1 } } })
+            .sort({ _id: -1 })
             .then(function (dbStory) {
                 res.status(200).json(dbStory);
             })
@@ -51,7 +52,7 @@ module.exports = function (app) {
     // GET route for retrieving a story by id
     app.get('/api/stories/:_id', function (req, res) {
         db.Story.find({ _id: req.params._id })
-            .populate('comments')
+            .populate({ path: 'comments', options: { sort: { _id: -1 } } })
             .then(function (dbStory) {
                 res.status(200).json(dbStory);
             })
@@ -63,7 +64,8 @@ module.exports = function (app) {
     // POST route for updating a story
     app.post('/api/stories/:_id', function (req, res) {
         db.Story.findOneAndUpdate({ _id: req.params._id }, req.body, { new: true })
-            .populate('comments')
+            .populate({ path: 'comments', options: { sort: { _id: -1 } } })
+            .sort({ _id: -1 })
             .then(function (dbStory) {
                 res.status(200).json(dbStory);
             })
