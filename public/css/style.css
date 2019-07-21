@@ -56,7 +56,11 @@ main {
     font-size: 0.8rem;
 }
 
-.story-list li {
+.story-list li p {
+    font-size: 0.75rem;
+}
+
+.story, .saved-story {
     display: flex;
     align-items: center;
 }
@@ -80,11 +84,6 @@ main {
 
 .save-btn:focus, .comment-btn:focus, .remove-btn:focus {
     outline: none;
-}
-
-.saved-story {
-    display: flex;
-    align-items: center;
 }
 
 .remove-btn {
