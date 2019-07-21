@@ -119,7 +119,7 @@ module.exports = function (app) {
                     resultsFiltered = resultsFiltered.reverse();// Order results chronologically, in ascending order
 
                     if (resultsFiltered.length === 0) {
-                        res.status(200).json({ message: 'No new articles' });
+                        res.status(200).json({ message: 'No new stories' });
                     } else {
                         db.Story.create(resultsFiltered)
                             .then(function (dbStory) {
