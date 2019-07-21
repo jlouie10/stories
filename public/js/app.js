@@ -2,17 +2,22 @@
 
 $(function () {
     // Scrape website for new stories using GET request and render stories
-    $.get('/api/v2/scrape')
+    $.get('/api/v3/scrape')
         .then(function (res) {
             if (res.message !== 'No new stories') {
+                var eaterStories = $('#eater-stories');
+                var tcStories = $('#tc-stories');
+                var ringerStories = $('#ringer-stories');
                 var storiesLength = res.length;
 
+
                 for (var i = 0; i < storiesLength; i++) {
-                    var stories = $('.story-list');
+                    var div = $('<div>');
                     var listItem = $('<li>');
                     var anchor = $('<a>');
                     var button = $('<button>');
                     var icon = $('<i>');
+                    var paragraph = $('<p>');
 
                     anchor.text(res[i].title)
                         .addClass('story-link')
@@ -27,10 +32,25 @@ $(function () {
                         .attr('data-save', 'false')
                         .append(icon);
 
-                    listItem.append(anchor)
-                        .append(button);
+                    div.append(anchor)
+                        .append(button)
+                        .addClass('story');
 
-                    stories.prepend(listItem);
+                    listItem.append(div);
+
+                    if (res[i].summary) {
+                        console.log('yes')
+                        paragraph.text(res[i].summary);
+                        listItem.append(paragraph);
+                    }
+
+                    if (res[i].link.indexOf('https://chicago.eater.com/') > -1) {
+                        eaterStories.prepend(listItem);
+                    } else if (res[i].link.indexOf('https://techcrunch.com/') > -1) {
+                        tcStories.prepend(listItem);
+                    } else {
+                        ringerStories.prepend(listItem);
+                    }
                 }
             }
         });
