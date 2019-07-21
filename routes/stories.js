@@ -20,6 +20,7 @@ module.exports = function (app) {
     // GET route for rendering saved view
     app.get('/saved', function (req, res) {
         db.Story.find({ bookmark: true })
+            .populate('comments')
             .sort({ _id: -1 })
             .then(function (dbStory) {
                 res.status(200).render('saved', { stories: dbStory, title: 'Saved Stories' });

@@ -59,9 +59,20 @@ $(function () {
             comment.author = 'Anonymous';
         }
 
-        // Create comment using POST request
+        // Create comment using POST request and render comment
         $.post('/api/comments', comment)
             .then(function (res) {
+                var comments = $('#story-' + res.story).find('.comment-list');
+                var listItem = $('<li>');
+                var heading = $('<h6>');
+                var paragraph = $('<p>');
+
+                paragraph.text(res.text);
+                heading.text(res.author);
+
+                listItem.append(heading).append(paragraph);
+                comments.append(listItem);
+
                 return $('[data-story=' + res.story + ']')[0].reset();
             });
     });
