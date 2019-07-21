@@ -40,7 +40,7 @@ main {
     max-height: 35px;
 }
 
-.story-list li, .saved-story-list li {
+.story-list li, .saved-story-list-item {
     padding: 4px 0;
     border-bottom: 1px solid #dfe1e5;
     font-size: 0.9rem;
@@ -51,21 +51,24 @@ main {
     align-items: center;
 }
 
-.save-btn, .remove-btn {
+.save-btn, .comment-btn, .remove-btn {
     border: none;
-    margin-left: auto;
     background-color: transparent;
 }
 
-.save-btn {
+.save-btn, .comment-btn {
+    margin-left: auto;
+}
+
+.save-btn, .comment-btn {
     color: #007bff;
 }
 
-.save-btn:hover, .save-btn:active {
+.save-btn:hover, .save-btn:active, .comment-btn:hover, .comment-btn:active {
     color: #0056b3;
 }
 
-.save-btn:focus, .remove-btn:focus {
+.save-btn:focus, .comment-btn:focus, .remove-btn:focus {
     outline: none;
 }
 
@@ -80,4 +83,31 @@ main {
 
 .remove-btn:hover, .remove-btn:active {
     color: #c82333;
+}
+
+.comment-list {
+    border-bottom: 1px solid #dfe1e5;
+}
+
+.comment-author {
+    font-size: 0.75rem;
+    font-weight: 600;
+}
+
+.comment-text {
+    color: #666;
+    font-size: 0.8rem;
+}
+
+.comment-form label, .comment-form input, .comment-form textarea {
+    font-size: 0.8rem;
+}
+
+.optional {
+    font-size: 0.75rem;
+    color: #999;
+}
+
+.submit-btn {
+    border-radius: 1rem;
 }
