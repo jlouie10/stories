@@ -64,12 +64,12 @@ module.exports = function (app) {
                                 res.status(200).json(dbStory);
                             })
                             .catch(function (err) {
-                                res.status(500).send(err);
+                                res.status(500).json(err);
                             });
                     }
                 })
                 .catch(function (err) {
-                    res.status(500).send(err);
+                    res.status(500).json(err);
                 });
         }));
     });
