@@ -25,7 +25,11 @@ const publisherSchema = new Schema({
             type: Schema.Types.ObjectId,
             ref: 'Story'
         }
-    ]
+    ],
+    website: {
+        type: String,
+        required: true
+    }
 }, { timestamps: true });
 
 // Create Publisher model
