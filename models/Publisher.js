@@ -20,6 +20,12 @@ const publisherSchema = new Schema({
         type: String,
         required: true
     },
+    scrapeConfigs: {
+        selector: {
+            type: String,
+            required: true
+        }
+    },
     stories: [
         {
             type: Schema.Types.ObjectId,
