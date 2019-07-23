@@ -14,10 +14,10 @@ module.exports = function (app) {
         axios.get('https://chicago.eater.com/').then(function (response) {
             const $ = cheerio.load(response.data);
 
-            $('h2.c-entry-box--compact__title').each(function (i, element) {
+            $('.c-entry-box--compact').each(function (i, element) {
                 const result = {
-                    title: $(element).children('a').text().trim(),
-                    link: $(element).children('a').attr('href').trim()
+                    title: $(this).find('h2 a').text().trim(),
+                    link: $(this).find('h2 a').attr('href').trim(),
                 };
 
                 db.Story.create(result)
