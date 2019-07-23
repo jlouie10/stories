@@ -40,12 +40,12 @@ module.exports = function (app) {
                     const existingLinks = dbStory.map(story => story.link);
                     let results = [];
 
-                    $('h2.c-entry-box--compact__title').each(function (i, element) {
-                        const scrapedLink = $(element).children('a').attr('href').trim();
+                    $('.c-entry-box--compact').each(function (i, element) {
+                        const scrapedLink = $(this).find('h2 a').attr('href').trim();
 
                         if (!existingLinks.includes(scrapedLink)) {
                             results.push({
-                                title: $(element).children('a').text().trim(),
+                                title: $(this).find('h2 a').text().trim(),
                                 link: scrapedLink
                             });
                         }
