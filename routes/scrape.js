@@ -106,8 +106,8 @@ module.exports = function (app) {
             $[1]('.post-block--unread').each(function (i, element) { // Unable to target <article>
                 results.push({
                     publisher: 'deprecated',
-                    title: $[1](this).find('header h2 a').text().trim(),
-                    link: $[1](this).find('header h2 a').attr('href').trim()
+                    title: $[1](this).find('h2 a').text().trim(),
+                    link: $[1](this).find('h2 a').attr('href').trim()
                 });
             });
 
