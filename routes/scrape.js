@@ -98,25 +98,25 @@ module.exports = function (app) {
             $[0]('.c-entry-box--compact').each(function (i, element) {
                 results.push({
                     publisher: 'deprecated',
-                    title: $(this).find('h2 a').text().trim(),
-                    link: $(this).find('h2 a').attr().trim()
+                    title: $[0](this).find('h2 a').text().trim(),
+                    link: $[0](this).find('h2 a').attr('href').trim()
                 });
             });
 
-            $[1]('.post-block.post-block--image.post-block--unread').each(function (i, element) { // Unable to target <article>
+            $[1]('.post-block--unread').each(function (i, element) { // Unable to target <article>
                 results.push({
                     publisher: 'deprecated',
-                    title: $(this).find('h2 a').text().trim(),
-                    link: $(this).find('h2 a').attr().trim()
+                    title: $[1](this).find('header h2 a').text().trim(),
+                    link: $[1](this).find('header h2 a').attr('href').trim()
                 });
             });
 
             $[2]('.c-entry-box--compact').each(function (i, element) {
                 results.push({
                     publisher: 'deprecated',
-                    title: $(this).find('h2 a').text().trim(),
-                    link: $(this).find('h2 a').attr().trim(),
-                    summary: $[2](element).find('.p-dek.c-entry-box--compact__dek').text().trim()
+                    title: $[2](this).find('h2 a').text().trim(),
+                    link: $[2](this).find('h2 a').attr('href').trim(),
+                    summary: $[2](this).find('.p-dek.c-entry-box--compact__dek').text().trim()
                 });
             });
 
