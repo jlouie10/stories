@@ -21,7 +21,10 @@ const storySchema = new Schema({
     ],
     link: {
         type: String,
-        unique: true,
+        required: true
+    },
+    publisher: {
+        type: String,
         required: true
     },
     summary: {
@@ -32,7 +35,7 @@ const storySchema = new Schema({
         type: String,
         required: true
     }
-});
+}, { timestamps: true });
 
 // Create Story model
 const Story = mongoose.model('Story', storySchema);
