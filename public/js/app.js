@@ -10,7 +10,6 @@ $(function () {
                 var ringerStories = $('#ringer-stories');
                 var storiesLength = res.length;
 
-
                 for (var i = 0; i < storiesLength; i++) {
                     var div = $('<div>');
                     var listItem = $('<li>');

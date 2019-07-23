@@ -85,6 +85,7 @@ module.exports = function (app) {
 
     // GET route for scraping multiple websites, v3
     app.get('/api/v3/scrape', function (req, res) {
+        // Make an axios batch request to all publisher websites
         axios.all([
             axios.get('https://chicago.eater.com/'),
             axios.get('https://techcrunch.com/'),
@@ -92,33 +93,34 @@ module.exports = function (app) {
         ]).then(axios.spread(function (eater, tc, ringer) {
             const response = [eater, tc, ringer];
             const results = [];
-            const $ = response.map(publisher => cheerio.load(publisher.data))
+            const $ = response.map(publisher => cheerio.load(publisher.data));
 
-            $[0]('h2.c-entry-box--compact__title').each(function (i, element) {
+            $[0]('.c-entry-box--compact').each(function (i, element) {
                 results.push({
                     publisher: 'deprecated',
-                    title: $[0](element).children('a').text().trim(),
-                    link: $[0](element).children('a').attr('href').trim()
+                    title: $[0](this).find('h2 a').text().trim(),
+                    link: $[0](this).find('h2 a').attr('href').trim()
                 });
             });
 
             $[1]('.post-block--unread').each(function (i, element) { // Unable to target <article>
                 results.push({
                     publisher: 'deprecated',
-                    title: $[1](element).find('header h2 a').text().trim(),
-                    link: $[1](element).find('header h2 a').attr('href').trim()
+                    title: $[1](this).find('header h2 a').text().trim(),
+                    link: $[1](this).find('header h2 a').attr('href').trim()
                 });
             });
 
-            $[2]('.c-compact-river__entry').each(function (i, element) {
+            $[2]('.c-entry-box--compact').each(function (i, element) {
                 results.push({
                     publisher: 'deprecated',
-                    title: $[2](element).find('h2 a').text().trim(),
-                    link: $[2](element).find('h2 a').attr('href').trim(),
-                    summary: $[2](element).find('p.p-dek.c-entry-box--compact__dek').text().trim()
+                    title: $[2](this).find('h2 a').text().trim(),
+                    link: $[2](this).find('h2 a').attr('href').trim(),
+                    summary: $[2](this).find('.p-dek.c-entry-box--compact__dek').text().trim()
                 });
             });
 
+            // Fetch all stories and filter duplicates
             db.Story.find({})
                 .then(function (dbStory) {
                     const scrapedLinks = results.map(story => story.link);
