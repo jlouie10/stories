@@ -14,10 +14,10 @@ module.exports = function (app) {
         axios.get('https://chicago.eater.com/').then(function (response) {
             const $ = cheerio.load(response.data);
 
-            $('h2.c-entry-box--compact__title').each(function (i, element) {
+            $('.c-entry-box--compact').each(function (i, element) {
                 const result = {
-                    title: $(element).children('a').text().trim(),
-                    link: $(element).children('a').attr('href').trim()
+                    title: $(this).find('h2 a').text().trim(),
+                    link: $(this).find('h2 a').attr('href').trim(),
                 };
 
                 db.Story.create(result)
@@ -40,12 +40,12 @@ module.exports = function (app) {
                     const existingLinks = dbStory.map(story => story.link);
                     let results = [];
 
-                    $('h2.c-entry-box--compact__title').each(function (i, element) {
-                        const scrapedLink = $(element).children('a').attr('href').trim();
+                    $('.c-entry-box--compact').each(function (i, element) {
+                        const scrapedLink = $(this).find('h2 a').attr('href').trim();
 
                         if (!existingLinks.includes(scrapedLink)) {
                             results.push({
-                                title: $(element).children('a').text().trim(),
+                                title: $(this).find('h2 a').text().trim(),
                                 link: scrapedLink
                             });
                         }
@@ -73,41 +73,43 @@ module.exports = function (app) {
 
     // GET route for scraping multiple websites, v3
     app.get('/api/v3/scrape', function (req, res) {
+        // Make an axios batch request to all publisher websites
         axios.all([
             axios.get('https://chicago.eater.com/'),
             axios.get('https://techcrunch.com/'),
             axios.get('https://www.theringer.com/')
-        ]).then(axios.spread(function (eater, tc, espn) {
-            const response = [eater, tc, espn];
+        ]).then(axios.spread(function (eater, tc, ringer) {
+            const response = [eater, tc, ringer];
             const results = [];
-            const $ = response.map(publisher => cheerio.load(publisher.data))
+            const $ = response.map(publisher => cheerio.load(publisher.data));
 
-            $[0]('h2.c-entry-box--compact__title').each(function (i, element) {
+            $[0]('.c-entry-box--compact').each(function (i, element) {
                 results.push({
-                    title: $[0](element).children('a').text().trim(),
-                    link: $[0](element).children('a').attr('href').trim()
+                    title: $[0](this).find('h2 a').text().trim(),
+                    link: $[0](this).find('h2 a').attr('href').trim()
                 });
             });
 
             $[1]('.post-block--unread').each(function (i, element) { // Unable to target <article>
                 results.push({
-                    title: $[1](element).find('header h2 a').text().trim(),
-                    link: $[1](element).find('header h2 a').attr('href').trim()
+                    title: $[1](this).find('h2 a').text().trim(),
+                    link: $[1](this).find('h2 a').attr('href').trim()
                 });
             });
 
-            $[2]('.c-compact-river__entry').each(function (i, element) {
+            $[2]('.c-entry-box--compact').each(function (i, element) {
                 results.push({
-                    title: $[2](element).find('h2 a').text().trim(),
-                    link: $[2](element).find('h2 a').attr('href').trim(),
-                    summary: $[2](element).find('p.p-dek.c-entry-box--compact__dek').text().trim()
+                    title: $[2](this).find('h2 a').text().trim(),
+                    link: $[2](this).find('h2 a').attr('href').trim(),
+                    summary: $[2](this).find('.p-dek.c-entry-box--compact__dek').text().trim()
                 });
             });
 
+            // Fetch all stories and filter duplicates
             db.Story.find({})
                 .then(function (dbStory) {
-                    const existingLinks = dbStory.map(story => story.link);
                     const scrapedLinks = results.map(story => story.link);
+                    const existingLinks = dbStory.map(story => story.link);
                     let resultsFiltered = [];
 
                     scrapedLinks.forEach((item, index, arr) => {
@@ -121,7 +123,7 @@ module.exports = function (app) {
                     if (resultsFiltered.length === 0) {
                         res.status(200).json({ message: 'No new stories' });
                     } else {
-                        db.Story.create(resultsFiltered)
+                        db.Story.create(resultsFiltered, { sort: { _id: -1 } })
                             .then(function (dbStory) {
                                 res.status(200).json(dbStory);
                             })
